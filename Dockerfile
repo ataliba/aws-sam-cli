@@ -1,13 +1,11 @@
-FROM ubuntu:18.04
+FROM ubuntu:latest
 
 LABEL authors="Ataliba Teixeira <ataliba@protonmail.com>"
 
 RUN apt-get update 
-RUN apt-get install -y curl python3 python3-pip 
+RUN apt-get install -y git curl python3 python3-pip 
 RUN pip3 install awscli 
 RUN pip3 install aws-sam-cli 
-RUN npm -g install react-scripts
-RUN npm -g install serverless
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -54,6 +52,8 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && node --version \
   && npm --version
 
+RUN npm -g install serverless
+RUN npm -g install react-scripts
 
 ENV YARN_VERSION 1.22.4
 
